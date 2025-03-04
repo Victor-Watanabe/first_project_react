@@ -10,7 +10,7 @@ function Home() {
   const inputAge = useRef();
   const inputEmail = useRef();
 
-  function PressButton() {
+  function PressButtonNewUser() {
     const newUser = {
       id: uuidv4(), 
       name: inputName.current.value,
@@ -25,6 +25,11 @@ function Home() {
     inputEmail.current.value = "";
   }
 
+  function DeletUsers(id) {
+    const filteredUsers = users.filter(user => user.id !== id);
+    setUsers(filteredUsers);
+  }
+
   return (
     <div className="container">
       <form>
@@ -32,7 +37,7 @@ function Home() {
         <input placeholder="Nome" name="name" type="text" ref={inputName} />
         <input placeholder="Idade" name="age" type="number" ref={inputAge} />
         <input placeholder="E-mail" name="email" type="email" ref={inputEmail} />
-        <button type="button" onClick={PressButton}>Cadastrar</button>
+        <button type="button" onClick={PressButtonNewUser}>Cadastrar</button>
       </form>
 
       {users.map((user) => (
@@ -42,7 +47,7 @@ function Home() {
             <p>Idade: <span>{user.age}</span></p>
             <p>Email: <span>{user.email}</span></p>
           </div>
-          <button>
+          <button onClick={() => DeletUsers(user.id)}>
             <img src={Trash} alt="Excluir usuário" />
           </button>
         </div>
